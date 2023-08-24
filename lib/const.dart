@@ -1,0 +1,1 @@
+const String avatarImage ="https://img.freepik.com/premium-vector/portrait-young-man-with-beard-hair-style-male-avatar-vector-illustration_266660-423.jpg?w=2000";
