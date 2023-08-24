@@ -1,1 +1,2 @@
-const String avatarImage ="https://img.freepik.com/premium-vector/portrait-young-man-with-beard-hair-style-male-avatar-vector-illustration_266660-423.jpg?w=2000";
+const String avatarImage ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkpclgdZQ3ZHBh6xTt4wlROP30NE_GY7MdVw&usqp=CAU";
+const String avatarImage2 ="https://images.vexels.com/content/145908/preview/male-avatar-maker-2a7919.png";
