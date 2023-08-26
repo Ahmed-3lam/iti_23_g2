@@ -15,6 +15,12 @@ class MessangerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildAppBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_fill,),label: "Chats"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2),label: "People"),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
