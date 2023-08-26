@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iti_23_g2/const.dart';
 import 'package:iti_23_g2/whatsapp/models/chat_model.dart';
 import 'package:iti_23_g2/whatsapp/widgets/custom_chats.dart';
+
+import '../json_files/chats_json.dart';
 
 class ChatsScreen extends StatelessWidget {
   ChatsScreen({super.key});
@@ -12,40 +14,41 @@ class ChatsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.green,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(CupertinoIcons.chat_bubble_text_fill),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CustomChats(
-                icon: Icons.lock,
-                text: "Locked Chats",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const CustomChats(
-                icon: Icons.archive,
-                text: "Archive",
-                countMessages: "20",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: names.length,
+        child: Column(
+          children: [
+            const CustomChats(
+              icon: Icons.lock,
+              text: "Locked Chats",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const CustomChats(
+              icon: Icons.archive,
+              text: "Archive",
+              countMessages: "20",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount:chatsList.length,
                 itemBuilder: (context, index) => _chatItem(
-                  name: names[index].name,
-                  message: names[index].message,
-                  createdAt: names[index].createdAt,
-                  image: names[index].image,
-                ),
-              )
-            ],
-          ),
+                    name: chatsList[index].name ?? "",
+                    message: chatsList[index].message??"hhh",
+                    createdAt: chatsList[index].createdAt ?? "",
+                    image: chatsList[index].image ?? "",
+                    messageType: chatsList[index].messageType!),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -56,8 +59,10 @@ class ChatsScreen extends StatelessWidget {
     required String message,
     required String createdAt,
     required String image,
+    required ChatType messageType,
   }) {
-    return Column(
+    return
+      Column(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,28 +86,7 @@ class ChatsScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  message,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey,
-                  ),
-                ),
-                // Row(
-                //   children: [
-                //     Icon(
-                //       CupertinoIcons.video_camera_solid,
-                //       color: Colors.grey,
-                //     ),
-                //     Text(
-                //       "Video",
-                //       style: TextStyle(
-                //         fontSize: 13,
-                //         color: Colors.grey,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                _messageTypeBuilder(message, messageType),
               ],
             ),
             const Spacer(),
@@ -121,27 +105,50 @@ class ChatsScreen extends StatelessWidget {
     );
   }
 
-  List<ChatModel> names = [
-    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),    ChatModel(name: "Ahmed", message: "Hello", createdAt: "11:39 PM",image: avatarImage),
-    ChatModel(name: "Mohamed", message: "Welcome", createdAt: "12:39 PM",image: avatarImage2),
-  ];
+  Widget _messageTypeBuilder(String message, ChatType messageType) {
+    if (messageType == ChatType.MESSAGE) {
+      return Text(
+        message,
+        style: const TextStyle(
+          fontSize: 13,
+          color: Colors.grey,
+        ),
+      );
+    } else if (messageType == ChatType.VIDEO) {
+      return Row(
+        children: [
+          Icon(
+            CupertinoIcons.video_camera_solid,
+            color: Colors.grey,
+          ),
+          Text(
+            "Video",
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Icon(
+            Icons.gif,
+            color: Colors.grey,
+          ),
+          Text(
+            "GIF",
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  List<ChatModel> chatsList =
+      whatsAppChats.map((e) => ChatModel.fromJson(e)).toList();
 }
