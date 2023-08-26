@@ -40,6 +40,7 @@ class ChatsScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemCount:chatsList.length,
+                scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => _chatItem(
                     name: chatsList[index].name ?? "",
                     message: chatsList[index].message??"hhh",
@@ -61,48 +62,48 @@ class ChatsScreen extends StatelessWidget {
     required String image,
     required ChatType messageType,
   }) {
-    return
-      Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(
-                image,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                _messageTypeBuilder(message, messageType),
-              ],
-            ),
-            const Spacer(),
-            Text(
-              createdAt,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
-    );
+    return CircleAvatar();
+    //   Column(
+    //   children: [
+    //     Row(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         CircleAvatar(
+    //           radius: 25,
+    //           backgroundImage: NetworkImage(
+    //             image,
+    //           ),
+    //         ),
+    //         const SizedBox(
+    //           width: 10,
+    //         ),
+    //         Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Text(
+    //               name,
+    //               style: const TextStyle(
+    //                 fontSize: 18,
+    //                 fontWeight: FontWeight.bold,
+    //               ),
+    //             ),
+    //             _messageTypeBuilder(message, messageType),
+    //           ],
+    //         ),
+    //         const Spacer(),
+    //         Text(
+    //           createdAt,
+    //           style: const TextStyle(
+    //             color: Colors.grey,
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //     const SizedBox(
+    //       height: 20,
+    //     ),
+    //   ],
+    // );
   }
 
   Widget _messageTypeBuilder(String message, ChatType messageType) {
