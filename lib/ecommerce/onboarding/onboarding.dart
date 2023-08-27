@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iti_23_g2/ecommerce/auth/auth_screen.dart';
 
-class OnBoardingOne extends StatefulWidget {
-  const OnBoardingOne({super.key});
+class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({super.key});
 
   @override
-  State<OnBoardingOne> createState() => _OnBoardingOneState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingOneState extends State<OnBoardingOne> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   String title = "Browse all the category";
   String description =
       "In aliquip aute exercitation ut et nisi ut mollit. Deserunt dolor elit pariatur aute .";
@@ -63,13 +65,17 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
   }
 
   void _changeOnBoarding() {
-    index++;
-    title = titleList[index];
-    description = descList[index];
-    image = "assets/images/boarding${index + 1}.png";
-    skipBtn = "assets/images/skip_btn${index + 1}.png";
-
-    setState(() {});
+    if (index < 2) {
+      index++;
+      title = titleList[index];
+      description = descList[index];
+      image = "assets/images/boarding${index + 1}.png";
+      skipBtn = "assets/images/skip_btn${index + 1}.png";
+      setState(() {});
+    } else {
+      Get.to(const AuthScreen(),
+          curve: Curves.easeOutBack, duration: Duration(seconds: 1));
+    }
   }
 }
 
