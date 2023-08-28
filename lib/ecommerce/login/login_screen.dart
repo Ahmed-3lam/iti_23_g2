@@ -154,8 +154,6 @@ final _passwordController = TextEditingController();
                 InkWell(
                   onTap: () {
                     _formKey.currentState!.validate();
-                    print();
-                    print(_passwordControlle_emailController.textr.text);
 
                   },
                   child: Material(
