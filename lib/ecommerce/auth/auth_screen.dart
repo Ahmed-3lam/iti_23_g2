@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iti_23_g2/ecommerce/login/login_screen.dart';
+import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -84,6 +87,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         text: "Continue with Email or Phone",
                         color: Colors.green,
                         textColor: Colors.white,
+                        onTap: () {
+                          Get.to(
+                            LoginScreen(),
+                            curve: Curves.bounceInOut,
+                            duration: Duration(seconds: 1),
+                          );
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -92,6 +102,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         text: "Create an account",
                         color: Colors.white,
                         textColor: Colors.black,
+                        onTap: (){
+                          Get.to(SignUpScreen());
+                        }
                       ),
                     ],
                   ),
@@ -99,26 +112,28 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
           ),
-
         ],
       ),
     );
   }
 
-  Widget _button({
-    required String text,
-    required Color color,
-    required Color textColor,
-  }) {
-    return Container(
-      height: 60,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(15)),
-      child: Center(
-          child: Text(
-        text,
-        style: TextStyle(color: textColor, fontSize: 18),
-      )),
+  Widget _button(
+      {required String text,
+      required Color color,
+      required Color textColor,
+      void Function()? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(15)),
+        child: Center(
+            child: Text(
+          text,
+          style: TextStyle(color: textColor, fontSize: 18),
+        )),
+      ),
     );
   }
 }

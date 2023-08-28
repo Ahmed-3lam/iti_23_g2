@@ -47,7 +47,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: _obscureText,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.grey[200],
+            fillColor: Colors.grey[100],
             contentPadding: EdgeInsets.all(12),
             border: OutlineInputBorder(borderSide: BorderSide.none),
             suffixIcon: widget.isPassword != null

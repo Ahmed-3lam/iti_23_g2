@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
+import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,22 +17,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final _passwordController2 = TextEditingController();
   bool _obscureText = true;
-  @override
-  void initState() {
 
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
-    print("========= first obscureText  "+_obscureText.toString() );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 100),
+        padding: EdgeInsets.only(right: 40,left: 40, top: 100,bottom: 20,),
         child: GestureDetector(
           onTap: FocusScope.of(context).unfocus,
           child: Form(
@@ -128,6 +125,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: height * .05,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have account?"),
+                      SizedBox(width: 10,),
+                      InkWell(
+                        onTap: (){
+                          Get.to(SignUpScreen());
+                        },
+                        child: Text("Sign up",style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -146,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
     required TextEditingController controller,
     bool? isPassword,
   }) {
+
     print("is password (1): "+isPassword.toString());
     return Column(
       children: [
