@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iti_23_g2/bmi/bmi_screen.dart';
+import 'package:iti_23_g2/ecommerce/login/login_screen.dart';
 import 'package:iti_23_g2/ecommerce/onboarding/onboarding.dart';
 import 'package:iti_23_g2/ecommerce/splash/splash_screen.dart';
 import 'package:iti_23_g2/test_apps/test1.dart';
@@ -20,13 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color(0xFF0A0E21),
-        primaryColor: Color(0xFF0A0E21),
-        textTheme: TextTheme(bodyText2: TextStyle(color: Colors.white)),
-      ),
       debugShowCheckedModeBanner: false,
-      home: BMICalculator(),
+      home: LoginScreen(),
     );
   }
 }

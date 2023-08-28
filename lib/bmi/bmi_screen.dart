@@ -5,7 +5,6 @@ enum Gender {
   female,
 }
 
-
 class BMICalculator extends StatefulWidget {
   @override
   _BMICalculatorState createState() => _BMICalculatorState();
@@ -45,7 +44,9 @@ class _BMICalculatorState extends State<BMICalculator> {
                       child: Container(
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: selectedGender == Gender.male ? Color(0xFF1D1E33) : Color(0xFF111328),
+                          color: selectedGender == Gender.male
+                              ? Color(0xFF1D1E33)
+                              : Color(0xFF111328),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Column(
@@ -58,7 +59,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                             SizedBox(height: 8.0),
                             Text(
                               'MALE',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -76,7 +78,9 @@ class _BMICalculatorState extends State<BMICalculator> {
                       child: Container(
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: selectedGender == Gender.female ? Color(0xFF1D1E33) : Color(0xFF111328),
+                          color: selectedGender == Gender.female
+                              ? Color(0xFF1D1E33)
+                              : Color(0xFF111328),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Column(
@@ -89,7 +93,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                             SizedBox(height: 8.0),
                             Text(
                               'FEMALE',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -112,7 +117,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                   children: [
                     Text(
                       'Height',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8.0),
                     Row(
@@ -122,7 +128,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                       children: [
                         Text(
                           height.toStringAsFixed(0),
-                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'cm',
@@ -157,12 +164,14 @@ class _BMICalculatorState extends State<BMICalculator> {
                   children: [
                     Text(
                       'Weight',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8.0),
                     Text(
                       weight.toStringAsFixed(0),
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8.0),
                     Row(
@@ -212,7 +221,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text('BMI Result'),
-                      content: Text('Your BMI is: ${bmi.toStringAsFixed(2)}\n\nYou are $message.'),
+                      content: Text(
+                          'Your BMI is: ${bmi.toStringAsFixed(2)}\n\nYou are $message.'),
                       actions: [
                         TextButton(
                           onPressed: () {
