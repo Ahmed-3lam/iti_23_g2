@@ -43,7 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           controller: widget.controller,
           validator: widget.validator,
-          obscureText: _obscureText,
+          obscureText: widget.isPassword!=null ?_obscureText:false,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.grey[100],

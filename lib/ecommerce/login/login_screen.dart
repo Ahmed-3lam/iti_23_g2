@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
+import 'package:iti_23_g2/ecommerce/main/main_screen.dart';
 import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
 import 'package:iti_23_g2/string_extension.dart';
 
@@ -69,14 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(height: height,
                       text: "Email",
                       controller: _emailController, validator: (value) {
-                    if (value!.isValidEmail) {
-                      return "Email didn't match";
-                    }
-                    if (value.isEmpty) {
-                      return "The Field is empty";
-                    } else if (value.length < 11) {
-                      return "the numbers in less than 11 digits";
-                    }
+                    // if (!value!.isValidEmail) {
+                    //   return "Email didn't match";
+                    // }
+                    // if (value.isEmpty) {
+                    //   return "The Field is empty";
+                    // } else if (value.length < 11) {
+                    //   return "the numbers in less than 11 digits";
+                    // }
 
                     setState(() {
 
@@ -113,7 +114,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        // if(_emailController.text =="3lam.ahmed@gmail.com" && _passwordController.text=="123456"){
+                          Get.offAll(MainScreen());
+                        // }
+                      }
                     },
                     child: Material(
                       borderRadius: BorderRadius.circular(16),

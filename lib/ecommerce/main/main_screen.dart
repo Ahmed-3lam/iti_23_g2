@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:iti_23_g2/const.dart';
+import 'package:iti_23_g2/ecommerce/home/home_controller.dart';
 import 'package:iti_23_g2/ecommerce/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,6 +14,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _index = 0;
+
   final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
 
   List _screens = [
@@ -131,11 +134,17 @@ class _MainScreenState extends State<MainScreen> {
       ),
       title: _buildAppBarTitle(),
       actions: [
-        CircleAvatar(
-          backgroundColor: Colors.grey[200],
-          child: const Icon(
-            Icons.search,
-            color: Colors.black,
+        InkWell(
+          onTap: ()async{
+          HomeController.pickPicture();
+
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.grey[200],
+            child: const Icon(
+              Icons.camera_alt,
+              color: Colors.black,
+            ),
           ),
         ),
         const SizedBox(

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:iti_23_g2/const.dart';
+import 'package:iti_23_g2/ecommerce/home/home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,14 +21,20 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Container(
-                  height: 200,
-                  width: double.infinity,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        banner1,
-                        fit: BoxFit.fill,
-                      ))),
+                height: 200,
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: HomeController.photo == null
+                      ? Image.network(
+                          banner1,
+                          fit: BoxFit.fill,
+                        )
+                      : Image.file(
+                          HomeController.photoFile!,fit: BoxFit.fill,
+                        ),
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),

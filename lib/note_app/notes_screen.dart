@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iti_23_g2/note_app/hive_helper.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -12,11 +13,12 @@ class NotesScreen extends StatefulWidget {
 class _NotesScreenState extends State<NotesScreen> {
   final _noteController = TextEditingController();
 
-@override
+  @override
   void initState() {
-   HiveHelper.getNotes();
+    HiveHelper.getNotes();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +38,12 @@ class _NotesScreenState extends State<NotesScreen> {
                   TextButton(
                     child: Text("OK"),
                     onPressed: () {
-                      if(_noteController.text.isNotEmpty){
+                      if (_noteController.text.isNotEmpty) {
                         // HiveHelper.notesList.add(_noteController.text);
                         HiveHelper.addNote(_noteController.text);
                         Navigator.pop(context);
                         setState(() {});
                       }
-
                     },
                   ),
                   TextButton(
@@ -53,7 +54,8 @@ class _NotesScreenState extends State<NotesScreen> {
                     },
                   ),
                 ],
-              );;
+              );
+              ;
             },
           );
         },
@@ -64,8 +66,8 @@ class _NotesScreenState extends State<NotesScreen> {
           itemBuilder: (context, index) => Stack(
                 children: [
                   InkWell(
-                    onTap: ()async{
-                      _noteController.text=HiveHelper.notesList[index];
+                    onTap: () async {
+                      _noteController.text = HiveHelper.notesList[index];
                       AlertDialog alert = AlertDialog(
                         title: Text("Add your note"),
                         content: TextFormField(
@@ -75,12 +77,12 @@ class _NotesScreenState extends State<NotesScreen> {
                           TextButton(
                             child: Text("OK"),
                             onPressed: () {
-                              if(_noteController.text.isNotEmpty){
-                               HiveHelper.notesList[index]=_noteController.text;
+                              if (_noteController.text.isNotEmpty) {
+                                HiveHelper.updateNote(
+                                    index, _noteController.text);
                                 Navigator.pop(context);
                                 setState(() {});
                               }
-
                             },
                           ),
                           TextButton(
@@ -93,12 +95,11 @@ class _NotesScreenState extends State<NotesScreen> {
                         ],
                       );
 
-
                       await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return alert;
-                      },
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        },
                       );
                     },
                     child: Container(
@@ -122,7 +123,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      HiveHelper.notesList.removeAt(index);
+                      HiveHelper.removeNote(index);
                       setState(() {});
                     },
                     child: Padding(
@@ -145,12 +146,20 @@ class _NotesScreenState extends State<NotesScreen> {
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
       actions: [
-        _buildActionButtons(icon: Icons.search),
+        _buildActionButtons(icon: Icons.search,onTap: ()async{
+          await launchUrlString("https:www.facebook.com",mode: LaunchMode.inAppWebView);
+        }),
         _buildActionButtons(
             icon: CupertinoIcons.delete,
             onTap: () {
-              HiveHelper.notesList.clear();
+              HiveHelper.removeAllNotes();
               setState(() {});
+            }),
+
+        _buildActionButtons(
+            icon: CupertinoIcons.phone,
+            onTap: ()async {
+
             }),
       ],
     );
