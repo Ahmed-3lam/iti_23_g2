@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -31,7 +31,13 @@ class _SplashScreenState extends State<SplashScreen> {
           // Do something when a tab is tapped.
         },
       ),
-      body: Container(),
+      appBar: AppBar(),
+        body:
+      Container(
+        height: 50,
+        width: 50,
+        color: Colors.yellow,
+      ),
     );
   }
 }
