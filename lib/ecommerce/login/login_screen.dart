@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
 import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
+import 'package:iti_23_g2/string_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController2 = TextEditingController();
   bool _obscureText = true;
 
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
@@ -27,7 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(right: 40,left: 40, top: 100,bottom: 20,),
+        padding: EdgeInsets.only(
+          right: 40,
+          left: 40,
+          top: 100,
+          bottom: 20,
+        ),
         child: GestureDetector(
           onTap: FocusScope.of(context).unfocus,
           child: Form(
@@ -60,33 +65,37 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: height * .05,
                   ),
+
                   CustomTextField(height: height,
                       text: "Email",
                       controller: _emailController, validator: (value) {
-                    bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value ?? "");
-                    if (emailValid == false) {
+                    if (value!.isValidEmail) {
                       return "Email didn't match";
                     }
-                    if (value!.isEmpty) {
+                    if (value.isEmpty) {
                       return "The Field is empty";
-                    } else if (value!.length < 11) {
+                    } else if (value.length < 11) {
                       return "the numbers in less than 11 digits";
                     }
+
+                    setState(() {
+
+                    });
                     return null;
                   }),
                   SizedBox(
                     height: height * .05,
                   ),
-                  CustomTextField(height: height,
+                  CustomTextField(
+                      height: height,
                       text: "Password",
                       controller: _passwordController,
                       isPassword: _obscureText),
                   SizedBox(
                     height: height * .05,
                   ),
-                  CustomTextField(height: height,
+                  CustomTextField(
+                      height: height,
                       text: "Confirm Password",
                       controller: _passwordController2,
                       isPassword: _obscureText),
@@ -133,15 +142,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Don't have account?"),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Get.to(SignUpScreen());
                         },
-                        child: Text("Sign up",style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),),
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   )
@@ -154,16 +168,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildTextField(
-   {
-     required double height,
+  Widget _buildTextField({
+    required double height,
     required String text,
     String? Function(String?)? validator,
     required TextEditingController controller,
     bool? isPassword,
   }) {
-
-    print("is password (1): "+isPassword.toString());
+    print("is password (1): " + isPassword.toString());
     return Column(
       children: [
         Row(
@@ -183,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
         TextFormField(
           controller: controller,
           validator: validator,
-          obscureText: isPassword??false ,
+          obscureText: isPassword ?? false,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.grey[200],
@@ -193,7 +205,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ? InkWell(
                     onTap: () {
                       isPassword = !isPassword!;
-                      print("===============isPassword: "+isPassword.toString());
+                      print("===============isPassword: " +
+                          isPassword.toString());
                       setState(() {});
                     },
                     child: Icon(isPassword

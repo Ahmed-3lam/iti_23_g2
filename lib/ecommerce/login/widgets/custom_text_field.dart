@@ -7,14 +7,13 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool? isPassword;
-
   const CustomTextField({
     super.key,
     required this.height,
     required this.text,
      this.validator,
     required this.controller,
-    this.isPassword
+    this.isPassword,
   });
 
   @override

@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:iti_23_g2/const.dart';
 
@@ -10,7 +9,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +18,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Container(
-                height: 200,
+                  height: 200,
                   width: double.infinity,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                      child: Image.network(banner1,fit: BoxFit.fill,))),
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        banner1,
+                        fit: BoxFit.fill,
+                      ))),
               const SizedBox(
                 height: 20,
               ),
@@ -56,13 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
-                  separatorBuilder: (context,index)=>SizedBox(width: 10,),
-                  itemBuilder: (context,index)=>_itemBuilder(),
-
+                  separatorBuilder: (context, index) => SizedBox(
+                    width: 10,
+                  ),
+                  itemBuilder: (context, index) => _itemBuilder(),
                 ),
               ),
-              SizedBox(height: 20,),
-
+              SizedBox(
+                height: 20,
+              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -91,12 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
-                  separatorBuilder: (context,index)=>SizedBox(width: 10,),
-                  itemBuilder: (context,index)=>_itemBuilder(),
-
+                  separatorBuilder: (context, index) => SizedBox(
+                    width: 10,
+                  ),
+                  itemBuilder: (context, index) => _itemBuilder(),
                 ),
               ),
-
             ],
           ),
         ),
@@ -178,6 +181,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 }
