@@ -10,7 +10,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -31,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // Do something when a tab is tapped.
         },
       ),
+      body: Container(),
     );
   }
 }
