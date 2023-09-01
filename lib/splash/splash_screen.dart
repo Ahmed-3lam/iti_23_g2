@@ -28,10 +28,14 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
         currentIndex: 0,
         onTap: (int index) {
-          // Do something when a tab is tapped.
         },
       ),
-      body: Container(),
+
+      body: ListView(
+        children: [
+          CircleAvatar(),
+        ],
+      ),
     );
   }
 }
