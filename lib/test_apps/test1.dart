@@ -1,40 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:iti_23_g2/const.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TestOneScreen extends StatefulWidget {
-  const TestOneScreen({super.key});
+import 'cubit/test_one_cubit.dart';
 
-  @override
-  State<TestOneScreen> createState() => _TestOneScreenState();
-}
+class TestOneScreen extends StatelessWidget {
+  TestOneScreen({super.key});
 
-class _TestOneScreenState extends State<TestOneScreen> {
-  var image=avatarImage;
-  _changeImage(){
-    if(image==avatarImage){
-      image=avatarImage2;
-
-    }else{
-      image=avatarImage;
-    }
-    setState(() {
-
-    });
-  }
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<TestOneCubit>();
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed:_changeImage,
-        
-      ),
+          child: Icon(Icons.add),
+          onPressed: () {
+            cubit.changeImage();
+            print("Hello");
+          }),
       body: Center(
-        child: Container(
-          height: 200,
-            width: 200,
-            child: Image.network(image)),
+        child: BlocBuilder<TestOneCubit, TestOneState>(
+          builder: (context, state) {
+            return Container(
+                height: 200, width: 200, child: Image.network(cubit.image));
+          },
+        ),
       ),
     );
   }

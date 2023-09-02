@@ -7,30 +7,32 @@ class HiveHelper {
   static var myBox = Hive.box(notesBox);
   static List<String> notesList = [];
 
-
   static void addNote(String text) async {
     notesList.add(text);
     await myBox.put(notesBoxKey, notesList);
   }
 
-  static void getNotes() {
+  static Future<void> getNotes() async {
     if (myBox.isNotEmpty) {
-      notesList = myBox.get(notesBoxKey);
+      await Future.delayed(Duration(seconds: 3))
+          .then((value) => notesList = myBox.get(notesBoxKey));
     }
   }
 
-  static void removeNote(int index)async{
+  static void removeNote(int index) async {
     notesList.removeAt(index);
     await myBox.put(notesBoxKey, notesList);
   }
 
-  static void removeAllNotes()async{
+  static void removeAllNotes() async {
     notesList.clear();
     await myBox.put(notesBoxKey, notesList);
   }
 
-  static void updateNote(int index,String text)async{
-   notesList[index]=text;
-   await myBox.put(notesBoxKey, notesList);
+  static Future<void> updateNote(int index, String text) async {
+    await Future.delayed((Duration(seconds: 5))).then((value) {
+      notesList[index] = text;
+      myBox.put(notesBoxKey, notesList);
+    });
   }
 }
