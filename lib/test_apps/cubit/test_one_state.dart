@@ -4,4 +4,5 @@ part of 'test_one_cubit.dart';
 abstract class TestOneState {}
 
 class TestOneInitial extends TestOneState {}
+
 class TestOneChangeImage extends TestOneState {}
