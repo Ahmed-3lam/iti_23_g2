@@ -14,7 +14,7 @@ class PostsCubit extends Cubit<PostsState> {
     emit(PostsLoadingState());
     try {
       var response =
-          await Dio().get("https://jsonplaceholder.typicode.com/posts");
+          await Dio().get("https://student.valuxapps.com/api/login");
       List json = response.data;
       posts = json.map((e) => PostModel.fromJson(e)).toList();
       emit(PostsSuccessState());

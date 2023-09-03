@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:iti_23_g2/ecommerce/login/login_screen.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
+import 'package:iti_23_g2/ecommerce/sign_up/cubit/sign_up_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,6 +16,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: height * .03,
                         ),
                         CustomTextField(
+                            height: height,
+                            text: "Phone",
+                            controller: _phoneController),
+                        SizedBox(
+                          height: height * .03,
+                        ),
+                        CustomTextField(
                           height: height,
                           text: "Password",
                           controller: _passwordController,
@@ -82,14 +92,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             Spacer(),
-                            Container(
-                              height: 50,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(12)
-                              ),
-                              child: Icon(Icons.arrow_forward_rounded,size: 35,color: Colors.white,),
+                            BlocBuilder<SignUpCubit, SignUpState>(
+                              builder: (context, state) {
+                                if(state is SignUpLoadingState){
+                                  return Center(child: CircularProgressIndicator(),);
+                                }
+                                return InkWell(
+                                  onTap: () {
+                                    context.read<SignUpCubit>().signUp(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        name: _nameController.text,
+                                        phone: _phoneController.text);
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    child: Icon(
+                                      Icons.arrow_forward_rounded,
+                                      size: 35,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),
@@ -100,15 +130,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Alreday Have Account?"),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Get.off(LoginScreen());
                               },
-                              child: Text("Log in",style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),),
+                              child: Text(
+                                "Log in",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ],
                         ),

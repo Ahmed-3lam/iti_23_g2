@@ -1,8 +1,10 @@
-import 'dart:io';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iti_23_g2/const.dart';
-import 'package:iti_23_g2/ecommerce/home/home_controller.dart';
+import 'package:iti_23_g2/ecommerce/home/cubit/home_cubit.dart';
+
+import 'models/BannerModel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,16 +25,50 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 height: 200,
                 width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: HomeController.photo == null
-                      ? Image.network(
-                          banner1,
-                          fit: BoxFit.fill,
-                        )
-                      : Image.file(
-                          HomeController.photoFile!,fit: BoxFit.fill,
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is HomeBannerLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is HomeBannerSuccess) {
+                      List<BannerData>? rawImages =
+                          context.read<HomeCubit>().bannerModel.data;
+                      List<BannerData>? images = [
+                        rawImages![6],
+                        rawImages[7],
+                        rawImages[8]
+                      ];
+                      return CarouselSlider(
+                        options: CarouselOptions(
+                          height: 400,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.95,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.3,
+                          scrollDirection: Axis.horizontal,
                         ),
+                        items: images.map((item) {
+                          return ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                item.image!,
+                                fit: BoxFit.fill,
+                              ));
+                        }).toList(),
+                      );
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
                 ),
               ),
               const SizedBox(

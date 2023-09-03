@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:iti_23_g2/ecommerce/login/cubit/login_cubit.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
 import 'package:iti_23_g2/ecommerce/main/main_screen.dart';
 import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
@@ -22,8 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.sizeOf(context).height;
-    var width = MediaQuery.sizeOf(context).width;
+    var height = MediaQuery
+        .sizeOf(context)
+        .height;
+    var width = MediaQuery
+        .sizeOf(context)
+        .width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -35,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
           bottom: 20,
         ),
         child: GestureDetector(
-          onTap: FocusScope.of(context).unfocus,
+          onTap: FocusScope
+              .of(context)
+              .unfocus,
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -70,20 +78,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(height: height,
                       text: "Email",
                       controller: _emailController, validator: (value) {
-                    // if (!value!.isValidEmail) {
-                    //   return "Email didn't match";
-                    // }
-                    // if (value.isEmpty) {
-                    //   return "The Field is empty";
-                    // } else if (value.length < 11) {
-                    //   return "the numbers in less than 11 digits";
-                    // }
+                        // if (!value!.isValidEmail) {
+                        //   return "Email didn't match";
+                        // }
+                        // if (value.isEmpty) {
+                        //   return "The Field is empty";
+                        // } else if (value.length < 11) {
+                        //   return "the numbers in less than 11 digits";
+                        // }
 
-                    setState(() {
+                        setState(() {
 
-                    });
-                    return null;
-                  }),
+                        });
+                        return null;
+                      }),
                   SizedBox(
                     height: height * .05,
                   ),
@@ -92,14 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Password",
                       controller: _passwordController,
                       isPassword: _obscureText),
-                  SizedBox(
-                    height: height * .05,
-                  ),
-                  CustomTextField(
-                      height: height,
-                      text: "Confirm Password",
-                      controller: _passwordController2,
-                      isPassword: _obscureText),
+
                   SizedBox(
                     height: height * .01,
                   ),
@@ -112,33 +113,42 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: height * .04,
                   ),
-                  InkWell(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        // if(_emailController.text =="3lam.ahmed@gmail.com" && _passwordController.text=="123456"){
-                          Get.offAll(MainScreen());
-                        // }
+                  BlocBuilder<LoginCubit, LoginState>(
+                    builder: (context, state) {
+                      if(state is LoginLoadingState){
+                        return Center(child: CircularProgressIndicator(),);
                       }
-                    },
-                    child: Material(
-                      borderRadius: BorderRadius.circular(16),
-                      elevation: 10,
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Center(
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                      return InkWell(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<LoginCubit>().login(
+                              email: _emailController.text,
+                              password: _passwordController.text,);
+                            // Get.offAll(MainScreen());
+
+                          }
+                        },
+                        child: Material(
+                          borderRadius: BorderRadius.circular(16),
+                          elevation: 10,
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   SizedBox(
                     height: height * .05,
@@ -208,16 +218,16 @@ class _LoginScreenState extends State<LoginScreen> {
             border: OutlineInputBorder(borderSide: BorderSide.none),
             suffixIcon: isPassword != null
                 ? InkWell(
-                    onTap: () {
-                      isPassword = !isPassword!;
-                      print("===============isPassword: " +
-                          isPassword.toString());
-                      setState(() {});
-                    },
-                    child: Icon(isPassword
-                        ? CupertinoIcons.eye_fill
-                        : CupertinoIcons.eye_slash_fill),
-                  )
+              onTap: () {
+                isPassword = !isPassword!;
+                print("===============isPassword: " +
+                    isPassword.toString());
+                setState(() {});
+              },
+              child: Icon(isPassword
+                  ? CupertinoIcons.eye_fill
+                  : CupertinoIcons.eye_slash_fill),
+            )
                 : null,
           ),
         ),
