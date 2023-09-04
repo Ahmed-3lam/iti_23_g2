@@ -6,8 +6,9 @@ import 'package:iti_23_g2/ecommerce/login/cubit/login_cubit.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
 import 'package:iti_23_g2/ecommerce/main/main_screen.dart';
 import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
+import 'package:iti_23_g2/language_cubit/language_cubit.dart';
 import 'package:iti_23_g2/string_extension.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -32,6 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
         .width;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: (){
+            context.read<LanguageCubit>().changeLanguage();
+          },
+            icon: Icon(Icons.language,color: Colors.green,)),
+      ),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.only(
@@ -107,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Forget Password?"),
+                      Text( AppLocalizations.of(context)!.forget_password,),
                     ],
                   ),
                   SizedBox(
@@ -138,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(16)),
                             child: Center(
                               child: Text(
-                                "Login",
+                                AppLocalizations.of(context)!.login,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,

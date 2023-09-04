@@ -6,6 +6,7 @@ import 'package:iti_23_g2/ecommerce/helper/api_url.dart';
 import 'package:iti_23_g2/ecommerce/helper/dio_helper.dart';
 import 'package:iti_23_g2/ecommerce/login/model/LoginModel.dart';
 import 'package:iti_23_g2/ecommerce/main/main_screen.dart';
+import 'package:iti_23_g2/note_app/hive_helper.dart';
 import 'package:meta/meta.dart';
 
 part 'login_state.dart';
@@ -31,7 +32,11 @@ class LoginCubit extends Cubit<LoginState> {
       );
       loginModel= LoginModel.fromJson(response.data);
       if(loginModel.status==true){
-        Get.offAll(MainScreen());
+        HiveHelper.setToken(loginModel.data!.token!);
+        DioHelper.headers["Authorization"]=loginModel.data?.token!;
+        print("=====================================");
+        print(loginModel.data?.token??"");
+        // Get.offAll(MainScreen());
         emit(LoginSuccessState());
       }else{
         Get.snackbar("Error", loginModel.message??"",backgroundColor: Colors.red);
@@ -40,6 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
 
 
     }catch(e){
+      print(e.toString());
       emit(LoginErrorState());
     }
 

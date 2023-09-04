@@ -5,7 +5,7 @@ import 'package:iti_23_g2/const.dart';
 import 'package:iti_23_g2/ecommerce/home/cubit/home_cubit.dart';
 
 import 'models/BannerModel.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -74,18 +74,18 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Popular Packs",
+                    AppLocalizations.of(context)!.popular_packs,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "View All",
+                      AppLocalizations.of(context)!.view_all,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

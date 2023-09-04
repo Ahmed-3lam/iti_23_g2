@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:iti_23_g2/note_app/hive_helper.dart';
 
 import 'api_url.dart';
 
 class DioHelper {
   static Dio? dio;
-  static String token = "";
+  static String token = HiveHelper.getToken();
   static Map<String, dynamic> headers = {
     "Accept": "application/json",
     "Content-Type": "application/json",
@@ -29,6 +30,8 @@ class DioHelper {
     required String path,
     Map<String, dynamic>? body,
   }) async {
+    print("Headers ====================");
+    print(headers.toString());
     final response = await dio!.get(path, data: body);
 
     return response;
