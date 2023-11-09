@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:iti_23_g2/ecommerce/login/cubit/login_cubit.dart';
 import 'package:iti_23_g2/ecommerce/login/widgets/custom_text_field.dart';
-import 'package:iti_23_g2/ecommerce/main/main_screen.dart';
 import 'package:iti_23_g2/ecommerce/sign_up/sign_up_screen.dart';
 import 'package:iti_23_g2/language_cubit/language_cubit.dart';
-import 'package:iti_23_g2/string_extension.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -20,40 +18,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _passwordController2 = TextEditingController();
   bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .sizeOf(context)
-        .height;
-    var width = MediaQuery
-        .sizeOf(context)
-        .width;
+    var height = MediaQuery.sizeOf(context).height;
+    var width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          onPressed: (){
-            context.read<LanguageCubit>().changeLanguage();
-          },
-            icon: Icon(Icons.language,color: Colors.green,)),
+            onPressed: () {
+              context.read<LanguageCubit>().changeLanguage();
+            },
+            icon: const Icon(
+              Icons.language,
+              color: Colors.green,
+            )),
       ),
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           right: 40,
           left: 40,
           top: 100,
           bottom: 20,
         ),
         child: GestureDetector(
-          onTap: FocusScope
-              .of(context)
-              .unfocus,
+          onTap: FocusScope.of(context).unfocus,
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -67,13 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: height * .02,
                   ),
-                  Text(
+                  const Text(
                     "Welcome to our",
                     style: TextStyle(
                       fontSize: 24,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "E-Grocery",
                     style: TextStyle(
                       fontSize: 24,
@@ -84,10 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: height * .05,
                   ),
-
-                  CustomTextField(height: height,
+                  CustomTextField(
+                      height: height,
                       text: "Email",
-                      controller: _emailController, validator: (value) {
+                      controller: _emailController,
+                      validator: (value) {
                         // if (!value!.isValidEmail) {
                         //   return "Email didn't match";
                         // }
@@ -97,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         //   return "the numbers in less than 11 digits";
                         // }
 
-                        setState(() {
-
-                        });
+                        setState(() {});
                         return null;
                       }),
                   SizedBox(
@@ -110,14 +103,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Password",
                       controller: _passwordController,
                       isPassword: _obscureText),
-
                   SizedBox(
                     height: height * .01,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text( AppLocalizations.of(context)!.forget_password,),
+                      Text(
+                        AppLocalizations.of(context)!.forget_password,
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -125,17 +119,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
-                      if(state is LoginLoadingState){
-                        return Center(child: CircularProgressIndicator(),);
+                      if (state is LoginLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                       return InkWell(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             context.read<LoginCubit>().login(
-                              email: _emailController.text,
-                              password: _passwordController.text,);
-                            // Get.offAll(MainScreen());
-
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                );
                           }
                         },
                         child: Material(
@@ -149,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Center(
                               child: Text(
                                 AppLocalizations.of(context)!.login,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                 ),
@@ -166,15 +161,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don't have account?"),
-                      SizedBox(
+                      const Text("Don't have account?"),
+                      const SizedBox(
                         width: 10,
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(SignUpScreen());
+                          Get.to(const SignUpScreen());
                         },
-                        child: Text(
+                        child: const Text(
                           "Sign up",
                           style: TextStyle(
                             color: Colors.green,
@@ -190,58 +185,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField({
-    required double height,
-    required String text,
-    String? Function(String?)? validator,
-    required TextEditingController controller,
-    bool? isPassword,
-  }) {
-    print("is password (1): " + isPassword.toString());
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: height * .01,
-        ),
-        TextFormField(
-          controller: controller,
-          validator: validator,
-          obscureText: isPassword ?? false,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey[200],
-            contentPadding: EdgeInsets.all(12),
-            border: OutlineInputBorder(borderSide: BorderSide.none),
-            suffixIcon: isPassword != null
-                ? InkWell(
-              onTap: () {
-                isPassword = !isPassword!;
-                print("===============isPassword: " +
-                    isPassword.toString());
-                setState(() {});
-              },
-              child: Icon(isPassword
-                  ? CupertinoIcons.eye_fill
-                  : CupertinoIcons.eye_slash_fill),
-            )
-                : null,
-          ),
-        ),
-      ],
     );
   }
 }

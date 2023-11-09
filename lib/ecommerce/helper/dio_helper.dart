@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:iti_23_g2/note_app/hive_helper.dart';
 
 import 'api_url.dart';
+import 'interceptors.dart';
 
 class DioHelper {
-  static Dio? dio;
+  static Dio? _dio;
   static String token = HiveHelper.getToken();
   static Map<String, dynamic> headers = {
     "Accept": "application/json",
@@ -13,16 +14,19 @@ class DioHelper {
   };
 
   static init() {
-
-    dio = Dio(BaseOptions(
+    _dio = Dio(BaseOptions(
       baseUrl: ApiUrl.baseUrl,
-      connectTimeout: Duration(seconds: 60),
-      receiveTimeout: Duration(seconds: 60),
+      connectTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
       receiveDataWhenStatusError: true,
       responseType: ResponseType.json,
       headers: headers,
-    )
-    );
+    ));
+    _dio!.interceptors.add(AuthInterceptor());
+
+    _dio!.interceptors.add(LoggingInterceptor());
+
+    _dio!.interceptors.add(AdapterInterceptor());
   }
 
   ///Get Data
@@ -30,9 +34,7 @@ class DioHelper {
     required String path,
     Map<String, dynamic>? body,
   }) async {
-    print("Headers ====================");
-    print(headers.toString());
-    final response = await dio!.get(path, data: body);
+    final response = await _dio!.get(path, data: body);
 
     return response;
   }
@@ -44,7 +46,7 @@ class DioHelper {
     Map<String, dynamic>? queryParams,
   }) async {
     final response =
-        await dio!.post(path, data: body, queryParameters: queryParams);
+        await _dio!.post(path, data: body, queryParameters: queryParams);
 
     return response;
   }
